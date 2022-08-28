@@ -1,18 +1,19 @@
 <template>
   <div id="app">
     <router-view/>
+    <main-view/>
   </div>
 </template>
 
 <script>
+import MainView from "@/views/MainView";
 export default {
   name: 'App',
+  components: {MainView},
 }
 </script>
 
 <style>
-
-
 body, html {
   height: 100%;
   width: 100%;
@@ -34,7 +35,7 @@ body, html {
   /*border-style: dashed;*/
   border-style: solid;
   border-color: #d3dce6;
-  border-width: 0.5px;
+  border-width: 1px;
   border-radius: 3px;
 }
 
