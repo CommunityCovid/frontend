@@ -13,7 +13,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import "style/boundaryWidth.css";
+
 body, html {
   height: 100%;
   width: 100%;
@@ -35,7 +37,7 @@ body, html {
   /*border-style: dashed;*/
   border-style: solid;
   border-color: #d3dce6;
-  border-width: 1px;
+  border-width: var(--boundary-width);
   border-radius: 3px;
 }
 

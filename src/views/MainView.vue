@@ -27,10 +27,10 @@ export default {
 <style scoped lang="scss">
 #main-view {
   width: 100%;
-  height: calc(100% - 2px);
+  height: 100%;
 
   #top {
-    height: calc(5% - 2px);
+    height: calc(5% - 2 * var(--boundary-width));
   }
 
   #bottom {
@@ -38,14 +38,14 @@ export default {
 
     #bottom-left {
       float: left;
-      width: calc(50% - 2px);
-      height: calc(100% - 1px);
+      width: calc(50% - 2 * var(--boundary-width));
+      height: calc(100% - 2 * var(--boundary-width));
     }
 
     #bottom-right {
       margin-left: 50%;
-      width: calc(50% - 2px);
-      height: calc(100% - 1px);
+      width: calc(50% - 2 * var(--boundary-width));
+      height: calc(100% - 2 * var(--boundary-width));
     }
   }
 }
