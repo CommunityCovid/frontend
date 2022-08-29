@@ -1,15 +1,16 @@
 <template>
-  <div id="grid-view" v-if="grids !== undefined" ref="gridview"/>
+  <!--  <div id="grid-view" v-if="grids !== undefined" ref="gridview"/>-->
+  <div id="grid-view" ref="gridview"/>
 </template>
 
 <script>
-import {mapState} from "vuex";
+// import {mapState} from "vuex";
 import api from "@/service/grids";
 
 export default {
   name: "GridView",
   created() {
-    this.$store.commit("datastore/initGrids");
+    // this.$store.commit("datastore/initGrids");
   },
   mounted() {
     this.drawGrids();
@@ -65,8 +66,8 @@ export default {
         newConfig["name"] = grid;
         newConfig["center"] = [`${y * 10 + 5}%`, `${x * 10 + 15}%`];
         newConfig["data"] = [
-          {value: data["finishedCnt"], name: "finished"},
-          {value: data["totalCnt"] - data["finishedCnt"], name: "unfinished"}
+          {value: data["finishedCnt"], name: "已完成"},
+          {value: data["totalCnt"] - data["finishedCnt"], name: "未完成"}
         ];
         option["series"].push(newConfig);
 
@@ -74,16 +75,9 @@ export default {
       }
 
       myChart.on("click", function (params) {
-        console.log(params);
-
-        if (params.componentType === "series") {
-          if (params.seriesType === "graph") {
-            if (params.dataType === "edge") {
-              // 点击到了 graph 的 edge（边）上。
-            } else {
-              // 点击到了 graph 的 node（节点）上。
-            }
-          }
+        if (params["componentType"] === "series" && params["componentSubType"] === "pie") {
+          const gridName = params["seriesName"];
+          console.log(gridName);
         }
       });
 
@@ -91,14 +85,14 @@ export default {
     }
   },
   computed: {
-    ...mapState("datastore", {
-      grids: state => state.grids
-    })
+    // ...mapState("datastore", {
+    //   grids: state => state.grids
+    // })
   },
   watch: {
-    grids() {
-
-    }
+    // grids() {
+    //
+    // }
   }
 };
 </script>
