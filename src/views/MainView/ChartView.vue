@@ -43,6 +43,11 @@ export default {
                 name: "Access From",
                 type: "pie",
                 radius: "50%",
+                label: {
+                  formatter: '{c}',
+                  position: 'inside',
+                  fontSize: 20
+                },
                 data: [
                   {value: data["finishedCnt"], name: "finished"},
                   {value: data["totalCount"] - data["finishedCnt"], name: "unfinished"}
@@ -53,7 +58,8 @@ export default {
           true
       );
     }
-  }
+  },
+
 };
 </script>
 

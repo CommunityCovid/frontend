@@ -4,13 +4,13 @@ export default {
     getGridsCnt(){
         return request({
             url: "/api/getGridsCnt",
-            method: "get"
+            method: "POST"
         });
     },
     getGridPeople(){
         return request({
             url: "/api/getGridPeople",
-            method: "get"
+            method: "GET"
         });
     }
 };

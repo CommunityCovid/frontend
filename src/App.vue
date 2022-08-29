@@ -1,15 +1,17 @@
 <template>
   <div id="app">
     <router-view/>
-    <main-view/>
+<!--    <main-view/>-->
   </div>
 </template>
 
 <script>
-import MainView from "@/views/MainView";
+// import MainView from "@/views/MainView";
 export default {
   name: 'App',
-  components: {MainView},
+  components: {},
+  created() {
+  }
 }
 </script>
 

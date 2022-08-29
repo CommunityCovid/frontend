@@ -18,9 +18,12 @@
 import ControlView from "@/views/MainView/ControlView";
 import ChartView from "@/views/MainView/ChartView";
 import GridView from "@/views/MainView/GridView";
+
 export default {
   name: "MainView",
-  components: {GridView, ChartView, ControlView}
+  components: {GridView, ChartView, ControlView},
+  created() {
+  }
 };
 </script>
 
