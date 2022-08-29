@@ -1,12 +1,14 @@
-import VueRouter from 'vue-router'
-import Main from "../views/MainView";
+import VueRouter from "vue-router";
+import MainView from "../views/MainView";
+import InfoView from "@/views/MainView/GridView/InfoView";
 
 const routes = [
-    {path: "/main", component: Main},
-    {path: '/', redirect: '/main'},
-]
+    {path: "/", redirect: "/main"},
+    {path: "/main", component: MainView},
+    {path: "/grid", component: InfoView},
+];
 
 export default new VueRouter({
-    mode: 'history',
+    mode: "history",
     routes
-})
+});
