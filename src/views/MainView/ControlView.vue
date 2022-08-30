@@ -29,6 +29,16 @@
         <!--          <el-button slot="reference" size="small" type="info" plain>选择日期</el-button>-->
         <!--        </el-popover>-->
       </el-col>
+      <el-col :span="9" :offset="3">
+        <div style="margin-top: calc(3%)">
+          <el-radio-group v-model="dateNotDone">
+            <el-radio :label="1">1天</el-radio>
+            <el-radio :label="3">3天</el-radio>
+            <el-radio :label="7">7天</el-radio>
+            <el-radio :label="14">14天</el-radio>
+          </el-radio-group>
+        </div>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -45,12 +55,17 @@ export default {
   },
   data() {
     return {
-      chosenDate: ''
+      chosenDate: '',
+      dateNotDone: 3
     }
   },
   watch: {
-    chosenDate(nVal, oVal) {
-      console.log(oVal, nVal)
+    chosenDate(nVal) {
+      this.$store.commit("datastore/changeDate", {date: nVal})
+    },
+    dateNotDone(nVal) {
+      console.log(nVal)
+      this.$store.commit("datastore/changeRecordLimit", {recordLimit: nVal})
     }
   }
 };

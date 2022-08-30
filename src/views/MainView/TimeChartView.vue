@@ -8,6 +8,7 @@
 <script>
 import * as d3 from "d3"
 import api from "@/service/timeChart";
+import {mapState} from "vuex";
 
 export default {
   name: "TimeChartView",
@@ -16,7 +17,6 @@ export default {
       timeScale: null,
       width: 0,
       height: 0
-
     }
   },
   methods: {
@@ -28,7 +28,7 @@ export default {
       console.log(this.timeScale(new Date('2022-08-24 8:00:00')))
     },
     async fetchRecordsData() {
-      let res = await api.getRecords()
+      let res = await api.getRecords(this.date, this.recordLimit)
       const heatMapData = res["data"][0]["heatMap"];
       let position = res["data"][0]["position"]
 
@@ -134,7 +134,27 @@ export default {
       chart.on('click', function (item) {
         console.log(item)
       })
-
+    },
+    dataUpdate() {
+      if (this.date && this.recordLimit) {
+        console.log(this.date, this.recordLimit)
+      }
+    },
+  },
+  computed: {
+    ...mapState("datastore", {
+      date: state => state.date,
+      recordLimit: state => state.recordLimit,
+      dateChanged: state => state.dateChanged,
+      recordLimitChanged: state => state.recordLimitChanged
+    })
+  },
+  watch: {
+    dateChanged() {
+      this.dataUpdate()
+    },
+    recordLimitChanged() {
+      this.dataUpdate()
     }
   },
   mounted() {

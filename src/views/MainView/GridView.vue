@@ -4,7 +4,7 @@
 </template>
 
 <script>
-// import {mapState} from "vuex";
+import {mapState} from "vuex";
 import api from "@/service/grids";
 
 export default {
@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     async drawGrids() {
-      const gridsCnt = await api.getGridsCnt();
+      const gridsCnt = await api.getGridsCnt(this.date, this.recordLimit);
       const gridsData = gridsCnt["data"][0];
       this.gridsData = gridsData;
 
@@ -120,18 +120,29 @@ export default {
       const unfinishedCnt = data["totalCnt"] - data["finishedCnt"];
       const proportion = `${unfinishedCnt}/${data["totalCnt"]}`;
       return `{name|${grid}}\n{proportion|${proportion}}`;
-    }
+    },
+    dataUpdate() {
+      if (this.date && this.recordLimit) {
+        console.log(this.date, this.recordLimit)
+      }
+    },
   },
   computed: {
-    // ...mapState("datastore", {
-    //   grids: state => state.grids
-    // })
+    ...mapState("datastore", {
+      date: state => state.date,
+      recordLimit: state => state.recordLimit,
+      dateChanged: state => state.dateChanged,
+      recordLimitChanged: state => state.recordLimitChanged
+    })
   },
   watch: {
-    // grids() {
-    //
-    // }
-  }
+    dateChanged() {
+      this.dataUpdate()
+    },
+    recordLimitChanged() {
+      this.dataUpdate()
+    }
+  },
 };
 </script>
 
