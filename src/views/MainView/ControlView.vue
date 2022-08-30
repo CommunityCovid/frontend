@@ -50,22 +50,22 @@ export default {
   name: "ControlView",
   methods: {
     async uploadFileHandle(param) {
-      api.uploadFile(param.file)
+      api.uploadFile(param.file);
     }
   },
   data() {
     return {
-      chosenDate: '',
+      chosenDate: "",
       dateNotDone: 3
-    }
+    };
   },
   watch: {
     chosenDate(nVal) {
-      this.$store.commit("datastore/changeDate", {date: nVal})
+      this.$store.commit("datastore/changeDate", {date: nVal});
     },
     dateNotDone(nVal) {
-      console.log(nVal)
-      this.$store.commit("datastore/changeRecordLimit", {recordLimit: nVal})
+      // console.log(nVal);
+      this.$store.commit("datastore/changeRecordLimit", {recordLimit: nVal});
     }
   }
 };

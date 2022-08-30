@@ -4,7 +4,7 @@ export default {
     getCommunityCnt(){
         return request({
             url: "/api/getCommunityCnt",
-            method: "GET"
+            method: "POST"
         });
     }
 };

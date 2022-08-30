@@ -1,20 +1,18 @@
 import request from "@/service/dataService";
 
 export default {
-    getGridsCnt(date, recordLimit) {
+    getGridsCnt(data) {
         return request({
             url: "/api/getGridsCnt",
             method: "POST",
-            data: {
-                date: date,
-                recordLimit: recordLimit
-            }
+            data
         });
     },
-    getGridPeople() {
+    getGridPeople(data) {
         return request({
             url: "/api/getGridPeople",
-            method: "POST"
+            method: "POST",
+            data
         });
     }
 };

@@ -31,7 +31,7 @@ export default {
       let _this = this
       chart.setOption(
           {
-            graphic: _this.genterateGraphic(data["finishedCnt"], data["totalCount"] - data["finishedCnt"], "统计结果", "right"),
+            graphic: _this.generateGraphic(data["finishedCnt"], data["totalCount"] - data["finishedCnt"], "统计结果", "right"),
             title: {
               text: "白名单核酸情况总况",
               // left: "center",
@@ -65,7 +65,7 @@ export default {
           true
       );
     },
-    genterateGraphic(finishedCnt, unFinishedCnt = 0, label, left) {
+    generateGraphic(finishedCnt, unFinishedCnt = 0, label, left) {
       const data = {
         elements: [
           {

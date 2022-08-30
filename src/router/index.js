@@ -5,7 +5,7 @@ import InfoView from "@/views/MainView/GridView/InfoView";
 const routes = [
     {path: "/", redirect: "/main"},
     {path: "/main", component: MainView},
-    {path: "/grid", component: InfoView},
+    {path: "/gridInfo", component: InfoView},
 ];
 
 export default new VueRouter({

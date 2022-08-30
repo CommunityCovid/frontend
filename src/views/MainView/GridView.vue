@@ -9,22 +9,21 @@ import api from "@/service/grids";
 
 export default {
   name: "GridView",
-  created() {
-    // this.$store.commit("datastore/initGrids");
-  },
   mounted() {
     this.drawGrids();
   },
   data() {
     return {
-      gridsData: {}
     };
   },
   methods: {
     async drawGrids() {
-      const gridsCnt = await api.getGridsCnt(this.date, this.recordLimit);
+      const gridsCnt = await api.getGridsCnt({
+        date: this.date,
+        recordLimit: this.recordLimit
+      });
       const gridsData = gridsCnt["data"][0];
-      this.gridsData = gridsData;
+      this.$store.commit("datastore/setGridsData", gridsData);
 
       let myChart = this.$echarts.getInstanceByDom(this.$refs["gridview"]);
       if (myChart == null) {
@@ -82,7 +81,7 @@ export default {
         newConfig["name"] = grid;
         newConfig["center"] = [`${y * 10 + 5}%`, `${x * 10 + 15}%`];
 
-        const outerRadius = (this.getBaseLog(10, data["totalCnt"]) / max) * 8;
+        const outerRadius = (this.getBaseLog(10, data["totalCnt"]) / max) * 10;
         newConfig["radius"] = [`${outerRadius / 1.7}%`, `${outerRadius}%`];
 
         newConfig["gridsData"] = gridsData[grid];
@@ -102,8 +101,8 @@ export default {
           const gridName = params["seriesName"];
 
           let routeData = that.$router.resolve({
-            path: "/grid",
-            query: {"gridName": gridName}
+            path: "/gridInfo",
+            query: {"grid": gridName}
           });
           window.open(routeData.href, "_blank");
         }
@@ -116,14 +115,14 @@ export default {
     },
     getLabel(params) {
       const grid = params["seriesName"];
-      const data = this.gridsData[grid];
+      const data = this.$store.state.datastore["gridsData"][grid];
       const unfinishedCnt = data["totalCnt"] - data["finishedCnt"];
       const proportion = `${unfinishedCnt}/${data["totalCnt"]}`;
       return `{name|${grid}}\n{proportion|${proportion}}`;
     },
     dataUpdate() {
       if (this.date && this.recordLimit) {
-        console.log(this.date, this.recordLimit)
+        // console.log(this.date, this.recordLimit)
       }
     },
   },

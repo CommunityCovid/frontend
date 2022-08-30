@@ -137,7 +137,7 @@ export default {
     },
     dataUpdate() {
       if (this.date && this.recordLimit) {
-        console.log(this.date, this.recordLimit)
+        // console.log(this.date, this.recordLimit)
       }
     },
   },
