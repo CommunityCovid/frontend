@@ -7,7 +7,6 @@ export default {
   name: "DoughnutChart",
   props: ['grid'],
   mounted() {
-    console.log(this.grid)
   }
 }
 </script>
