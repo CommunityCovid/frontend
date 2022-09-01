@@ -4,11 +4,13 @@
 const state = () => ({
     gridsData: null,
     dateChanged: false,
-    date: '2022-08-25',
+    date: "2022-08-25",
 
     recordLimitChanged: false,
     recordLimit: 3,
-})
+
+    timeGranularity: "day"
+});
 
 const actions = {};
 
@@ -16,15 +18,18 @@ const mutations = {
     setGridsData(state, payload) {
         state.gridsData = payload;
     },
-    changeDate(state, {date: date}){
-        state.date = date
+    changeDate(state, {date: date}) {
+        state.date = date;
 
-        state.dateChanged = !state.dateChanged
+        state.dateChanged = !state.dateChanged;
     },
-    changeRecordLimit(state, {recordLimit: recordLimit}){
-        state.recordLimit = recordLimit
+    changeRecordLimit(state, {recordLimit: recordLimit}) {
+        state.recordLimit = recordLimit;
 
-        state.recordLimitChanged = !state.recordLimitChanged
+        state.recordLimitChanged = !state.recordLimitChanged;
+    },
+    changeTimeGranularity(state, payload) {
+        state.timeGranularity = payload;
     }
 };
 

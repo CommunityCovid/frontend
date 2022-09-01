@@ -4,37 +4,35 @@
       <control-view/>
     </div>
     <div id="bottom">
-      <el-col style="height: 100%">
-        <el-row style="height: 45%">
-          <div id="bottom-left-top" class="boundary">
-            <chart-view/>
-          </div>
-        </el-row>
-
-        <el-row style="height: 55%">
-          <div id="bottom-left-bottom" class="boundary">
-            <time-chart-view/>
-          </div>
-        </el-row>
-      </el-col>
-      <div id="bottom-right" class="boundary">
-        <grid-view/>
+      <div id="hourly-view" v-if="timeGranularity==='hour'">
+        <hourly-view/>
+      </div>
+      <div id="daily-view" v-else-if="timeGranularity==='day'">
+        <daily-view/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import {mapState} from "vuex";
 import ControlView from "@/views/MainView/ControlView";
-import ChartView from "@/views/MainView/ChartView";
-import GridView from "@/views/MainView/GridView";
-import TimeChartView from "./MainView/TimeChartView";
+import HourlyView from "@/views/MainView/HourlyView";
+import DailyView from "@/views/MainView/DailyView";
 
 export default {
   name: "MainView",
-  components: {TimeChartView, GridView, ChartView, ControlView},
+  components: {DailyView, HourlyView, ControlView},
+  data() {
+    return {};
+  },
   created() {
-    // this.$store.commit("datastore/initGrids")
+  },
+  watch: {},
+  computed: {
+    ...mapState("datastore", {
+      timeGranularity: state => state.timeGranularity
+    })
   }
 };
 </script>
@@ -45,31 +43,22 @@ export default {
   height: 100%;
 
   #top {
+    width: 100%;
     height: calc(6% - 2 * var(--boundary-width));
   }
 
   #bottom {
+    width: 100%;
     height: 95%;
 
-    #bottom-left-top {
-      float: left;
-      width: calc(40% - 2 * var(--boundary-width) - 5px);
-      height: calc(100% - 2 * var(--boundary-width) - 10px);
-      margin-top: 2px;
-
+    #hourly-view {
+      width: 100%;
+      height: 100%;
     }
 
-    #bottom-left-bottom {
-      float: left;
-      width: calc(40% - 2 * var(--boundary-width) - 5px);
-      height: calc(100% - 2 * var(--boundary-width) - 5px);
-      margin-top: -5px;
-    }
-
-    #bottom-right {
-      margin-left: 40%;
-      width: calc(60% - 2 * var(--boundary-width));
-      height: calc(100% - 2 * var(--boundary-width));
+    #daily-view {
+      width: 100%;
+      height: 100%;
     }
   }
 }

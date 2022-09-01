@@ -39,6 +39,13 @@
           </el-radio-group>
         </div>
       </el-col>
+      <el-col :span="3" :offset="1">
+        <el-select v-model="timeGranularity" placeholder="请选择"
+                   size="small">
+          <el-option key="hour" label="小时" value="hour"/>
+          <el-option key="day" label="天" value="day"/>
+        </el-select>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -56,7 +63,8 @@ export default {
   data() {
     return {
       chosenDate: "",
-      dateNotDone: 3
+      dateNotDone: 3,
+      timeGranularity: "day"
     };
   },
   watch: {
@@ -64,8 +72,10 @@ export default {
       this.$store.commit("datastore/changeDate", {date: nVal});
     },
     dateNotDone(nVal) {
-      // console.log(nVal);
       this.$store.commit("datastore/changeRecordLimit", {recordLimit: nVal});
+    },
+    timeGranularity(nVal) {
+      this.$store.commit("datastore/changeTimeGranularity", nVal);
     }
   }
 };
