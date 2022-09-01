@@ -1,5 +1,5 @@
 <template>
-  <div id="info-view" @click="click()">
+  <div id="info-view">
     <div id="info-chart" class="boundary">
 
     </div>
@@ -44,25 +44,10 @@ export default {
       }, {});
     });
     this.gridPeople = this.gridPeople.slice(2, 20);
-    // console.log(this.gridPeople);
 
     // const gridsData = this.$store.state.datastore["gridsData"];
   },
   methods: {
-    async click() {
-      // const res = await api.getGridPeople({"grid": this.grid});
-      // const {columns, people} = res["data"][0];
-      // this.columns = columns;
-      // this.gridPeople = people.map(function (row) {
-      //   return row.reduce(function (result, field, index) {
-      //     result[columns[index]] = field;
-      //     return result;
-      //   }, {});
-      // });
-      // this.gridPeople = this.gridPeople.slice(1, 20);
-      //
-      // const gridsData = this.$store.state.datastore["gridsData"];
-    }
   }
 };
 </script>

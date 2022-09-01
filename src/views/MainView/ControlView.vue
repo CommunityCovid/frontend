@@ -42,8 +42,8 @@
       <el-col :span="3" :offset="1">
         <el-select v-model="timeGranularity" placeholder="请选择"
                    size="small">
-          <el-option key="hour" label="小时" value="hour"/>
           <el-option key="day" label="天" value="day"/>
+          <el-option key="hour" label="小时" value="hour"/>
         </el-select>
       </el-col>
     </el-row>
