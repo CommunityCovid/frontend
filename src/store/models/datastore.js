@@ -9,7 +9,7 @@ const state = () => ({
     recordLimitChanged: false,
     recordLimit: 3,
 
-    timeGranularity: "day"
+    timeGranularity: "white"
 });
 
 const actions = {};

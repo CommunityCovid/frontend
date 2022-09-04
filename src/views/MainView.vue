@@ -7,8 +7,8 @@
       <div id="hourly-view" v-if="timeGranularity==='hour'">
         <hourly-view/>
       </div>
-      <div id="daily-view" v-else-if="timeGranularity==='day'">
-        <daily-view/>
+      <div id="white-view" v-else-if="timeGranularity==='white'">
+        <white-view/>
       </div>
       <div id="grey-view" v-else-if="timeGranularity==='grey'">
         <grey-view/>
@@ -21,12 +21,12 @@
 import {mapState} from "vuex";
 import ControlView from "@/views/MainView/ControlView";
 import HourlyView from "@/views/MainView/HourlyView";
-import DailyView from "@/views/MainView/DailyView";
+import WhiteView from "@/views/MainView/WhiteView";
 import GreyView from "@/views/MainView/GreyView";
 
 export default {
   name: "MainView",
-  components: {GreyView, DailyView, HourlyView, ControlView},
+  components: {GreyView, WhiteView, HourlyView, ControlView},
   data() {
     return {};
   },
@@ -60,7 +60,7 @@ export default {
       height: 100%;
     }
 
-    #daily-view {
+    #white-view {
       width: 100%;
       height: 100%;
     }

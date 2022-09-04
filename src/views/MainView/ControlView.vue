@@ -42,9 +42,9 @@
       <el-col :span="3" :offset="1">
         <el-select v-model="timeGranularity" placeholder="请选择"
                    size="small">
-          <el-option key="day" label="天" value="day"/>
-          <el-option key="hour" label="小时" value="hour"/>
+          <el-option key="white" label="白名单" value="white"/>
           <el-option key="grey" label="灰名单" value="grey"/>
+          <el-option key="hour" label="小时" value="hour"/>
         </el-select>
       </el-col>
     </el-row>
@@ -65,7 +65,7 @@ export default {
     return {
       chosenDate: "",
       dateNotDone: 3,
-      timeGranularity: "day"
+      timeGranularity: "white"
     };
   },
   watch: {

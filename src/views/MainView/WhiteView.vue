@@ -1,16 +1,16 @@
 <template>
-  <div id="grey-view">
+  <div id="white-view">
     <div id="left">
       <div id="left-top" class="boundary">
         <chart-view/>
       </div>
       <div id="left-bottom" class="boundary">
-        <grid-view/>
+        <time-chart-view/>
       </div>
     </div>
 
     <div id="right" class="boundary">
-      <grey-list-view/>
+      <grid-view/>
     </div>
   </div>
 </template>
@@ -18,16 +18,16 @@
 <script>
 import ChartView from "@/views/MainView/DailyView/ChartView";
 import GridView from "@/views/MainView/DailyView/GridView";
-import GreyListView from "@/views/MainView/GreyView/GreyListView";
+import TimeChartView from "@/views/MainView/DailyView/TimeChartView";
 
 export default {
-  name: "GreyView",
-  components: {GreyListView, GridView, ChartView},
+  name: "WhiteView",
+  components: {GridView, TimeChartView, ChartView},
 };
 </script>
 
 <style scoped lang="scss">
-#grey-view {
+#white-view {
   width: 100%;
   height: 100%;
 
