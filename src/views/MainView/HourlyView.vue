@@ -7,23 +7,31 @@
         </el-col>
       </el-row>
     </div>
-
   </div>
 </template>
 
 <script>
 import BarChart from "@/components/BarChart";
 import api from "@/service/barchart";
+import gridApi from "@/service/grids";
 
 export default {
   name: "HourlyView",
   components: {BarChart},
   async mounted() {
-    const res = await api.getGridsTimeInfo({
+    const data = {
       "date": this.$store.state.datastore.date,
-      "recordLimit": this.$store.state.datastore.recordLimit
-    });
+      "recordLimit": this.$store.state.datastore.recordLimit,
+    };
+
+    const res = await api.getGridsTimeInfo(data);
     const {positions, recordsTime} = res["data"][0];
+
+    if (!this.$store.state.datastore.gridsData) {
+      const gridsCnt = await gridApi.getGridsCnt(data);
+      const gridsData = gridsCnt["data"][0];
+      this.$store.commit("datastore/setGridsData", gridsData);
+    }
 
     for (let i = 0; i < 8; i += 1) {
       for (let j = 0; j < 10; j += 1) {
@@ -57,7 +65,6 @@ export default {
 #hourly-view {
   width: 100%;
   height: 100%;
-
 
   #charts {
     --padding: 5px;

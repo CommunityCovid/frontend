@@ -8,6 +8,13 @@ export default {
             data
         });
     },
+    getGridCnt(data) {
+        return request({
+            url: "/api/getGridCnt",
+            method: "POST",
+            data
+        });
+    },
     getGridPeople(data) {
         return request({
             url: "/api/getGridPeople",

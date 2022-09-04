@@ -13,14 +13,13 @@ export default {
     this.drawGrids();
   },
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
     async drawGrids() {
       const gridsCnt = await api.getGridsCnt({
-        date: this.date,
-        recordLimit: this.recordLimit
+        "date": this.date,
+        "recordLimit": this.recordLimit
       });
       const gridsData = gridsCnt["data"][0];
       this.$store.commit("datastore/setGridsData", gridsData);
@@ -79,7 +78,7 @@ export default {
 
         let newConfig = {...config};
         newConfig["name"] = grid;
-        newConfig["center"] = [`${y * 10 + 5}%`, `${x * 10 + 15}%`];
+        newConfig["center"] = [`${y * 10 + 5}%`, `${x * 11 + 15}%`];
 
         const outerRadius = (this.getBaseLog(10, data["totalCnt"]) / max) * 10;
         newConfig["radius"] = [`${outerRadius / 1.7}%`, `${outerRadius}%`];
@@ -102,7 +101,11 @@ export default {
 
           let routeData = that.$router.resolve({
             path: "/gridInfo",
-            query: {"grid": gridName}
+            query: {
+              "grid": gridName,
+              "date": that.$store.state.datastore.date,
+              "recordLimit": that.$store.state.datastore.recordLimit,
+            }
           });
           window.open(routeData.href, "_blank");
         }
@@ -136,10 +139,10 @@ export default {
   },
   watch: {
     dateChanged() {
-      this.dataUpdate()
+      this.dataUpdate();
     },
     recordLimitChanged() {
-      this.dataUpdate()
+      this.dataUpdate();
     }
   },
 };

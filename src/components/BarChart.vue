@@ -23,6 +23,7 @@ export default {
             textAlign: "center",
             fill: "#333",
             fontSize: 12,
+            fontWeight: "bold"
           }
         },
         grid: {
