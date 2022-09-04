@@ -1,6 +1,6 @@
 import VueRouter from "vue-router";
 import MainView from "../views/MainView";
-import InfoView from "@/views/MainView/WhiteView/GridView/InfoView";
+import InfoView from "@/views/MainView/GridView/InfoView";
 
 const routes = [
     {path: "/", redirect: "/main"},

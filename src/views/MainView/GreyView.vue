@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import ChartView from "@/views/MainView/WhiteView/ChartView";
-import GridView from "@/views/MainView/WhiteView/GridView";
+import ChartView from "@/views/MainView/GreyView/ChartView";
+import GridView from "@/views/MainView/GreyView/GridView";
 import GreyListView from "@/views/MainView/GreyView/GreyListView";
 
 export default {

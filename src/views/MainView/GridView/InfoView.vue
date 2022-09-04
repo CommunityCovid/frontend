@@ -30,6 +30,7 @@ export default {
       grid: this.$route.query.grid,
       date: this.$route.query.date,
       recordLimit: this.$route.query.recordLimit,
+      type: this.$route.query.type,
 
       columns: null,
       gridPeople: null,
@@ -37,21 +38,22 @@ export default {
     };
   },
   async mounted() {
+    console.log(this.type);
     this.tableHeight = this.$refs.infotable.clientHeight;
 
     const cnt = await api.getGridCnt({
       "grid": this.grid,
       "date": this.date,
       "recordLimit": this.recordLimit
-    });
+    }); // todo: // 白 or 灰？
     const {finishedCnt, totalCnt} = cnt["data"][0];
     this.$refs["piechart"].drawPieChart({
-      title: "白名单核酸情况总况",
+      title: this.type === "white" ? "白名单核酸情况总况" : "灰名单核酸情况总况",
       finishedCnt: finishedCnt,
       totalCnt: totalCnt
     });
 
-    const res = await api.getGridPeople({"grid": this.grid});
+    const res = await api.getGridPeople({"grid": this.grid}); // todo: // 白 or 灰？
     const {columns, people} = res["data"][0];
     this.columns = columns;
     this.gridPeople = people.map(function (row) {

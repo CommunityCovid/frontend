@@ -74,7 +74,7 @@ export default {
               {
                 type: "text",
                 style: {
-                  text: "{a|总人数(白名单)}",
+                  text: "{a|总人数}",
                   rich: {
                     a: {
                       fontSize: 12,

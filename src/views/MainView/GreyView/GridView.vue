@@ -30,7 +30,7 @@ export default {
       const gridsCnt = await api.getGridsCnt({
         "date": this.date,
         "recordLimit": this.recordLimit
-      });
+      });  // todo: 换成灰名单数据
       const gridsData = gridsCnt["data"][0];
       this.$store.commit("datastore/setGridsData", gridsData);
     },
@@ -124,7 +124,7 @@ export default {
               "grid": gridName,
               "date": that.$store.state.datastore.date,
               "recordLimit": that.$store.state.datastore.recordLimit,
-              "type": "white"
+              "type": "grey"
             }
           });
           window.open(routeData.href, "_blank");
