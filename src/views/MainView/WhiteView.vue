@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import ChartView from "@/views/MainView/DailyView/ChartView";
-import GridView from "@/views/MainView/DailyView/GridView";
-import TimeChartView from "@/views/MainView/DailyView/TimeChartView";
+import ChartView from "@/views/MainView/WhiteView/ChartView";
+import GridView from "@/views/MainView/WhiteView/GridView";
+import TimeChartView from "@/views/MainView/WhiteView/TimeChartView";
 
 export default {
   name: "WhiteView",
