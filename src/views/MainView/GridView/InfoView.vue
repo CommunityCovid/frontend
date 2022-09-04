@@ -1,19 +1,33 @@
 <template>
   <div id="info-view">
-    <div id="info-chart" class="boundary">
+    <div id="left" class="boundary">
       <pie-chart ref="piechart"/>
     </div>
-    <div id="info-table" class="boundary" ref="infotable">
-      <el-table v-if="tableHeight"
-                :data="gridPeople"
-                stripe :max-height="tableHeight">
-        <el-table-column v-for="(item, index) in columns" :key="`${index}${item}`"
-                         :label="item" width="150px">
-          <template slot-scope="scope">
-            {{ scope.row[item] }}
-          </template>
-        </el-table-column>
-      </el-table>
+
+    <div id="right" class="boundary">
+      <span id="title">名单列表</span>
+
+      <div id="table" ref="infotable">
+        <el-table v-if="tableHeight"
+                  :data="getPageData()"
+                  stripe :height="tableHeight" :max-height="tableHeight">
+          <el-table-column v-for="(item, index) in columns" :key="`${index}${item}`"
+                           :label="item" :width="wideColumns.includes(item)?'210px':'120px'">
+            <template slot-scope="scope">
+              {{ scope.row[item] }}
+            </template>
+          </el-table-column>
+        </el-table>
+
+        <div id="pagination">
+          <el-pagination
+              background
+              layout="prev, pager, next"
+              :total="total"
+              @current-change="currentChange">
+          </el-pagination>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -34,11 +48,16 @@ export default {
 
       columns: null,
       gridPeople: null,
-      tableHeight: 0
+      tableHeight: 0,
+      wideColumns: ["证件号码", "出生年月", "户籍地址", "工作单位地址",
+        "楼栋编码", "房屋编码", "审核时间", "灰名单原因", "上次核酸检测时间"],
+
+      pageSize: 10,
+      currentPage: 1,
+      total: 0
     };
   },
   async mounted() {
-    console.log(this.type);
     this.tableHeight = this.$refs.infotable.clientHeight;
 
     const cnt = await api.getGridCnt({
@@ -62,9 +81,17 @@ export default {
         return result;
       }, {});
     });
-    this.gridPeople = this.gridPeople.slice(2, 20); // todo
+    this.total = this.gridPeople.length;
   },
-  methods: {}
+  methods: {
+    getPageData() {
+      return this.gridPeople.slice((this.currentPage - 1) * this.pageSize,
+          this.currentPage * this.pageSize);
+    },
+    currentChange(currentPage) {
+      this.currentPage = currentPage;
+    },
+  }
 };
 </script>
 
@@ -73,16 +100,31 @@ export default {
   height: 100%;
   width: 100%;
 
-  #info-chart {
+  #left {
     float: left;
     width: calc(40% - 2 * var(--boundary-width));
     height: calc(45% - 2 * var(--boundary-width));
   }
 
-  #info-table {
+  #right {
     margin-left: 40%;
     width: calc(60% - 2 * var(--boundary-width));
     height: calc(100% - 2 * var(--boundary-width));
+
+    #title {
+      line-height: 40px;
+      font-weight: bold;
+    }
+
+    #table {
+      width: 100%;
+      height: calc(100% - 90px);
+
+      #pagination {
+        text-align: center;
+        margin-top: 10px;
+      }
+    }
   }
 }
 </style>
