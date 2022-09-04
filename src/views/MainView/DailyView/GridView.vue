@@ -1,6 +1,14 @@
 <template>
-  <!--  <div id="grid-view" v-if="grids !== undefined" ref="gridview"/>-->
-  <div id="grid-view" ref="gridview"/>
+  <div id="grid-view">
+    <div id="grids" ref="grids"/>
+
+    <div id="settings">
+      <el-radio-group v-model="sortBy" @change="sortMethodChanged">
+        <el-radio label="name">名字</el-radio>
+        <el-radio label="num">人数</el-radio>
+      </el-radio-group>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -10,36 +18,47 @@ import api from "@/service/grids";
 export default {
   name: "GridView",
   mounted() {
-    this.drawGrids();
+    this.getGridData();
   },
   data() {
-    return {};
+    return {
+      sortBy: "name"
+    };
   },
   methods: {
-    async drawGrids() {
+    async getGridData() {
       const gridsCnt = await api.getGridsCnt({
         "date": this.date,
         "recordLimit": this.recordLimit
       });
       const gridsData = gridsCnt["data"][0];
       this.$store.commit("datastore/setGridsData", gridsData);
-
-      let myChart = this.$echarts.getInstanceByDom(this.$refs["gridview"]);
-      if (myChart == null) {
-        myChart = this.$echarts.init(this.$refs["gridview"]);
+    },
+    drawGrids() {
+      let gridsData = this.$store.state.datastore.gridsData;
+      if (!gridsData) {
+        return;
       }
 
-      const keysSorted = Object.keys(gridsData).sort(
-          (a, b) => gridsData[b]["totalCnt"] - gridsData[a]["totalCnt"]);
+      let myChart = this.$echarts.getInstanceByDom(this.$refs["grids"]);
+      if (myChart == null) {
+        myChart = this.$echarts.init(this.$refs["grids"]);
+      }
+
+      let keysSorted = Object.keys(gridsData)
+          .sort((a, b) => gridsData[b]["totalCnt"] - gridsData[a]["totalCnt"]);
       const max = this.getBaseLog(10, gridsData[keysSorted[0]]["totalCnt"]);
+      if (this.sortBy === "name") {
+        keysSorted.sort();
+      }
 
       let option = {
         tooltip: {
           trigger: "item"
         },
         legend: {
-          top: "3.3%",
-          left: "center",
+          top: "2%",
+          right: "0%",
           height: "3.3%"
         },
         series: []
@@ -123,26 +142,20 @@ export default {
       const proportion = `${unfinishedCnt}/${data["totalCnt"]}`;
       return `{name|${grid}}\n{proportion|${proportion}}`;
     },
-    dataUpdate() {
-      if (this.date && this.recordLimit) {
-        // console.log(this.date, this.recordLimit)
-      }
-    },
+    sortMethodChanged() {
+      this.drawGrids();
+    }
   },
   computed: {
     ...mapState("datastore", {
       date: state => state.date,
       recordLimit: state => state.recordLimit,
-      dateChanged: state => state.dateChanged,
-      recordLimitChanged: state => state.recordLimitChanged
+      gridsData: state => state.gridsData
     })
   },
   watch: {
-    dateChanged() {
-      this.dataUpdate();
-    },
-    recordLimitChanged() {
-      this.dataUpdate();
+    gridsData() {
+      this.drawGrids();
     }
   },
 };
@@ -152,5 +165,17 @@ export default {
 #grid-view {
   height: 100%;
   width: 100%;
+  position: relative;
+
+  #grids {
+    height: 100%;
+    width: 100%;
+  }
+
+  #settings {
+    position: absolute;
+    top: 2%;
+    left: 20px;
+  }
 }
 </style>
