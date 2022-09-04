@@ -1,17 +1,16 @@
 <template>
   <div id="daily-view">
     <div id="daily-view-left">
-    <div id="daily-chart-view" class="boundary">
+      <div id="daily-chart-view" class="boundary">
         <chart-view/>
       </div>
       <div id="daily-grid-view" class="boundary">
-        <grid-view/>
-        <!--      <time-chart-view/>-->
+        <time-chart-view/>
       </div>
     </div>
 
     <div id="daily-view-right" class="boundary">
-      <grey-list-view/>
+      <grid-view/>
     </div>
   </div>
 </template>
@@ -19,12 +18,11 @@
 <script>
 import ChartView from "@/views/MainView/DailyView/ChartView";
 import GridView from "@/views/MainView/DailyView/GridView";
-// import TimeChartView from "@/views/MainView/DailyView/TimeChartView";
-import GreyListView from "@/views/MainView/DailyView/GreyListView";
+import TimeChartView from "@/views/MainView/DailyView/TimeChartView";
 
 export default {
   name: "DailyView",
-  components: {GreyListView, GridView, ChartView},
+  components: {GridView, TimeChartView, ChartView},
 };
 </script>
 

@@ -44,6 +44,7 @@
                    size="small">
           <el-option key="day" label="天" value="day"/>
           <el-option key="hour" label="小时" value="hour"/>
+          <el-option key="grey" label="灰名单" value="grey"/>
         </el-select>
       </el-col>
     </el-row>
