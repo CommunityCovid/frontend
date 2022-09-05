@@ -114,7 +114,7 @@ export default {
               "grid": gridName,
               "date": that.$store.state.datastore.date,
               "recordLimit": that.$store.state.datastore.recordLimit, // todo:是否正确？
-              "type": this.type
+              "type": that.type
             }
           });
           window.open(routeData.href, "_blank");
