@@ -18,7 +18,7 @@ export default {
       chart.setOption(
           {
             graphic: this.generateGraphic(finishedCnt, unfinishedCnt, totalCnt,
-                "统计结果", "right"),
+                "统计结果", "80%"),
             title: {
               text: title,
               x: "27%"
