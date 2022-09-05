@@ -7,7 +7,7 @@ const state = () => ({
     date: "2022-08-25",
 
     recordLimitChanged: false,
-    recordLimit: 3,
+    recordLimit: 1,
 
     timeGranularity: "white"
 });

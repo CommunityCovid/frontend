@@ -145,18 +145,32 @@ export default {
     },
     sortMethodChanged() {
       this.drawGrids();
+    },
+    dataUpdate() {
+      if (this.date && this.recordLimit) {
+        this.getGridData();
+        this.drawGrids();
+      }
     }
   },
   computed: {
     ...mapState("datastore", {
       date: state => state.date,
       recordLimit: state => state.recordLimit,
-      gridsData: state => state.gridsData
+      gridsData: state => state.gridsData,
+      dateChanged: state => state.dateChanged,
+      recordLimitChanged: state => state.recordLimitChanged
     })
   },
   watch: {
     gridsData() {
       this.drawGrids();
+    },
+    dateChanged() {
+      this.dataUpdate()
+    },
+    recordLimitChanged() {
+      this.dataUpdate()
     }
   },
 };

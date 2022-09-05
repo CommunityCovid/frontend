@@ -1,10 +1,11 @@
 import request from "@/service/dataService";
 
 export default {
-    getCommunityCnt(){
+    getCommunityCnt(data){
         return request({
             url: "/api/getCommunityCnt",
-            method: "POST"
+            method: "POST",
+            data
         });
     }
 };

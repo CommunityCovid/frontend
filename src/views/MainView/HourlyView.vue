@@ -14,50 +14,76 @@
 import BarChart from "@/components/BarChart";
 import api from "@/service/barchart";
 import gridApi from "@/service/grids";
+import {mapState} from "vuex";
 
 export default {
   name: "HourlyView",
   components: {BarChart},
-  async mounted() {
-    const data = {
-      "date": this.$store.state.datastore.date,
-      "recordLimit": this.$store.state.datastore.recordLimit,
-    };
+  mounted() {
+    this.init()
+  },
+  methods: {
+    async init() {
+      const data = {
+        "date": this.$store.state.datastore.date,
+        "recordLimit": this.$store.state.datastore.recordLimit,
+      };
+      const res = await api.getGridsTimeInfo(data);
+      const {positions, recordsTime} = res["data"][0];
 
-    const res = await api.getGridsTimeInfo(data);
-    const {positions, recordsTime} = res["data"][0];
+      if (!this.$store.state.datastore.gridsData) {
+        const gridsCnt = await gridApi.getGridsCnt(data);
+        const gridsData = gridsCnt["data"][0];
+        this.$store.commit("datastore/setGridsData", gridsData);
+      }
 
-    if (!this.$store.state.datastore.gridsData) {
-      const gridsCnt = await gridApi.getGridsCnt(data);
-      const gridsData = gridsCnt["data"][0];
-      this.$store.commit("datastore/setGridsData", gridsData);
-    }
+      for (let i = 0; i < 8; i += 1) {
+        for (let j = 0; j < 10; j += 1) {
+          const num = i * 10 + j;
+          if (!positions[num]) {
+            break;
+          }
+          const gridName = positions[num];
+          let records = recordsTime[gridName], done = [], notDone = [];
+          const totalCnt = this.$store.state.datastore.gridsData[gridName]["totalCnt"];
 
-    for (let i = 0; i < 8; i += 1) {
-      for (let j = 0; j < 10; j += 1) {
-        const num = i * 10 + j;
-        if (!positions[num]) {
-          break;
+          let cnt = 0;
+          records.forEach(val => {
+            cnt += val;
+            done.push(cnt);
+            notDone.push(totalCnt - cnt);
+          });
+          this.$refs[`barchart${i + 1}${j + 1}`][0].drawBarChart({
+            "gridName": gridName,
+            "records": records,
+            "done": done,
+            "notDone": notDone
+          });
         }
-        const gridName = positions[num];
-        let records = recordsTime[gridName], done = [], notDone = [];
-        const totalCnt = this.$store.state.datastore.gridsData[gridName]["totalCnt"];
-
-        let cnt = 0;
-        records.forEach(val => {
-          cnt += val;
-          done.push(cnt);
-          notDone.push(totalCnt - cnt);
-        });
-        this.$refs[`barchart${i + 1}${j + 1}`][0].drawBarChart({
-          "gridName": gridName,
-          "records": records,
-          "done": done,
-          "notDone": notDone
-        });
+      }
+    },
+    dataUpdate() {
+      if (this.date && this.recordLimit) {
+        this.init()
       }
     }
-  }
+  },
+  computed: {
+    ...mapState("datastore", {
+      date: state => state.date,
+      recordLimit: state => state.recordLimit,
+      dateChanged: state => state.dateChanged,
+      recordLimitChanged: state => state.recordLimitChanged
+    })
+  },
+  watch: {
+    dateChanged() {
+      this.dataUpdate()
+    },
+    recordLimitChanged() {
+      this.dataUpdate()
+    }
+  },
 };
 </script>
 

@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import * as d3 from "d3"
 import api from "@/service/timeChart";
 import {mapState} from "vuex";
 
@@ -20,15 +19,8 @@ export default {
     }
   },
   methods: {
-    initTimeChart() {
-      let canvas = d3.select("#canvas")
-      canvas.selectAll("*").remove()
-
-      this.timeScale = d3.scaleTime().domain([new Date('2022-08-24'), new Date('2022-08-25')]).range([0, this.width])
-      console.log(this.timeScale(new Date('2022-08-24 8:00:00')))
-    },
     async fetchRecordsData() {
-      let res = await api.getRecords(this.date, this.recordLimit)
+      let res = await api.getRecords(this.date)
       const heatMapData = res["data"][0]["heatMap"];
       let position = res["data"][0]["position"]
 
@@ -136,8 +128,8 @@ export default {
       })
     },
     dataUpdate() {
-      if (this.date && this.recordLimit) {
-        // console.log(this.date, this.recordLimit)
+      if (this.date) {
+        this.fetchRecordsData()
       }
     },
   },
@@ -153,16 +145,8 @@ export default {
     dateChanged() {
       this.dataUpdate()
     },
-    recordLimitChanged() {
-      this.dataUpdate()
-    }
   },
   mounted() {
-    // this.width = this.$el.getBoundingClientRect().width - 10
-    // this.height = this.$el.getBoundingClientRect().height - 10
-    //
-    // this.initTimeChart()
-    // this.drawHeatMap()
     this.fetchRecordsData()
   }
 }

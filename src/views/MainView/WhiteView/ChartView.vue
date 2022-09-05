@@ -7,6 +7,7 @@
 <script>
 import api from "@/service/charts";
 import PieChart from "@/components/PieChart";
+import {mapState} from "vuex";
 
 export default {
   name: "ChartView",
@@ -19,7 +20,12 @@ export default {
   },
   methods: {
     async drawOverall() {
-      const res = await api.getCommunityCnt();
+      const res = await api.getCommunityCnt(
+          {
+            "date": this.date,
+            "recordLimit": this.recordLimit
+          }
+      );
       const data = res["data"];
       this.$refs["piechart"].drawPieChart({
         title: "白名单核酸情况总况",
@@ -27,6 +33,27 @@ export default {
         totalCnt: data["totalCount"]
       });
     },
+    dataUpdate(){
+      if(this.date && this.recordLimit){
+        this.drawOverall()
+      }
+    }
+  },
+  computed: {
+    ...mapState("datastore", {
+      date: state => state.date,
+      recordLimit: state => state.recordLimit,
+      dateChanged: state => state.dateChanged,
+      recordLimitChanged: state => state.recordLimitChanged
+    })
+  },
+  watch: {
+    dateChanged(){
+      this.dataUpdate()
+    },
+    recordLimitChanged(){
+      this.dataUpdate()
+    }
   },
 
 };

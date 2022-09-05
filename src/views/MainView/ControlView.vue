@@ -64,7 +64,7 @@ export default {
   data() {
     return {
       chosenDate: "",
-      dateNotDone: 3,
+      dateNotDone: 1,
       timeGranularity: "white"
     };
   },
