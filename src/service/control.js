@@ -15,5 +15,12 @@ export default {
             headers: {'Content-Type': 'multipart/form-data'},
             data: form
         });
+    },
+    getExportReport(data){
+        return request({
+            url: "/api/getExportReport",
+            method: "POST",
+            data
+        });
     }
 };
