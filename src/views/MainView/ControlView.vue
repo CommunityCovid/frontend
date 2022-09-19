@@ -1,7 +1,7 @@
 <template>
   <div id="control-view">
     <el-row id="control-row" type="flex" justify="flex-start" align="middle"
-            gutter="20">
+            :gutter="20">
       <el-col :span="2">
         <el-upload
             class="upload-demo"
@@ -38,6 +38,7 @@
           <el-option key="white" label="白名单" value="white"/>
           <el-option key="grey" label="灰名单" value="grey"/>
           <el-option key="hour" label="小时" value="hour"/>
+          <el-option key="community" label="小区/工业园" value="community"/>
         </el-select>
       </el-col>
 

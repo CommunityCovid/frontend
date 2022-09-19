@@ -13,6 +13,9 @@
       <div id="grey-view" v-else-if="timeGranularity==='grey'">
         <grey-view/>
       </div>
+      <div id="community-view" v-else-if="timeGranularity==='community'">
+        <community-view/>
+      </div>
     </div>
   </div>
 </template>
@@ -23,10 +26,11 @@ import ControlView from "@/views/MainView/ControlView";
 import HourlyView from "@/views/MainView/HourlyView";
 import WhiteView from "@/views/MainView/WhiteView";
 import GreyView from "@/views/MainView/GreyView";
+import CommunityView from "./MainView/CommunityView";
 
 export default {
   name: "MainView",
-  components: {GreyView, WhiteView, HourlyView, ControlView},
+  components: {GreyView, WhiteView, HourlyView, ControlView, CommunityView},
   data() {
     return {};
   },
@@ -65,7 +69,12 @@ export default {
       height: 100%;
     }
 
-    #grey-view{
+    #grey-view {
+      width: 100%;
+      height: 100%;
+    }
+
+    #community-view {
       width: 100%;
       height: 100%;
     }

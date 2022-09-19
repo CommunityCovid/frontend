@@ -7,5 +7,12 @@ export default {
             method: "POST",
             data
         });
+    },
+    getHousingTimeInfo(data){
+        return request({
+            url: "/api/getHousingTimeInfo",
+            method: "POST",
+            data
+        });
     }
 };

@@ -89,7 +89,9 @@ export default {
         newConfig["name"] = grid;
         newConfig["center"] = [`${y * 10 + 5}%`, `${x * 11 + 15}%`];
 
-        const outerRadius = (this.getBaseLog(10, data["totalCnt"]) / max) * 11;
+        // const outerRadius = (this.getBaseLog(10, data["totalCnt"]) / max) * 11;
+        const outerRadius = 10;
+
         newConfig["radius"] = [`${outerRadius / 1.7}%`, `${outerRadius}%`];
 
         newConfig["gridsData"] = gridsData[grid];

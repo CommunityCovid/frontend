@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     async getGridData() {
-      const gridsCnt = await api.getGridsCnt({
+      const gridsCnt = await api.getGridsGreyCnt({
         "date": this.date,
         "recordLimit": this.recordLimit
       });  // todo: 换成灰名单数据

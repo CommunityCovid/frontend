@@ -8,6 +8,13 @@ export default {
             data
         });
     },
+    getGridsGreyCnt(data) {
+        return request({
+            url: "/api/getGridsGreyCnt",
+            method: "POST",
+            data
+        });
+    },
     getGridCnt(data) {
         return request({
             url: "/api/getGridCnt",

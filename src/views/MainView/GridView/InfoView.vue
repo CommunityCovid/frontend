@@ -72,7 +72,7 @@ export default {
       totalCnt: totalCnt
     });
 
-    const res = await api.getGridPeople({"grid": this.grid}); // todo: // 白 or 灰？
+    const res = await api.getGridPeople({"grid": this.grid, "date":this.$store.state.datastore.date}); // todo: // 白 or 灰？
     const {columns, people} = res["data"][0];
     this.columns = columns;
     this.gridPeople = people.map(function (row) {

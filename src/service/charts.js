@@ -7,5 +7,13 @@ export default {
             method: "POST",
             data
         });
+    },
+
+    getCommunityGreyCnt(data){
+        return request({
+            url: "/api/getCommunityGreyCnt",
+            method: "POST",
+            data
+        });
     }
 };

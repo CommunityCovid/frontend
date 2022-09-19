@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     async drawOverall() {
-      const res = await api.getCommunityCnt(
+      const res = await api.getCommunityGreyCnt(
           {
             "date": this.date,
             "recordLimit": this.recordLimit

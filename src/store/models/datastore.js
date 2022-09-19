@@ -4,7 +4,7 @@
 const state = () => ({
     gridsData: null, // 白名单
     greyGridsData: null, // 灰名单
-
+    housingsData: null, //小区
     dateChanged: false,
     date: "2022-08-25",
 
@@ -19,6 +19,9 @@ const actions = {};
 const mutations = {
     setGridsData(state, payload) {
         state.gridsData = payload;
+    },
+    setHousingsData(state, payload) {
+        state.housingsData = payload;
     },
     setGreyGridsData(state, payload) {
         state.greyGridsData = payload;

@@ -1,12 +1,11 @@
 import request from "@/service/dataService";
 
 export default {
-    getGreyListPeople(data) {
+    getHousingCnt(data) {
         return request({
-            url: "/api/getGreyListPeople",
+            url: "/api/getHousingCnt",
             method: "POST",
             data
-
         });
-    }
+    },
 };
