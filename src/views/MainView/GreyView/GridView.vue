@@ -25,7 +25,7 @@ export default {
       const gridsCnt = await api.getGridsGreyCnt({
         "date": this.date,
         "recordLimit": this.recordLimit
-      });  // todo: 换成灰名单数据
+      });
       const gridsData = gridsCnt["data"][0];
       this.$store.commit("datastore/setGreyGridsData", gridsData);
 

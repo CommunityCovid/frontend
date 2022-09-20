@@ -3,11 +3,11 @@ import axios from "axios";
 
 Vue.prototype.axios = axios;
 
-const dataServerUrl = "http://localhost:5000";
+const dataServerUrl = "http://localhost:9999";
 
 const service = axios.create({
     baseURL: dataServerUrl,
-    timeout: 5000
+    timeout: 500000
 });
 
 service.interceptors.request.use(

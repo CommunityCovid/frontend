@@ -59,12 +59,29 @@ export default {
   },
   async mounted() {
     this.tableHeight = this.$refs.infotable.clientHeight;
+    let cnt;
+    let res;
+    // cnt = await api.getGridCnt({
+    //   "grid": this.grid,
+    //   "date": this.date,
+    //   "recordLimit": this.recordLimit
+    // })
+    if (this.type === "white"){
+      cnt = await api.getGridCnt({
+        "grid": this.grid,
+        "date": this.date,
+        "recordLimit": this.recordLimit
+      })
+      res = await api.getGridPeople({"grid": this.grid, "date": this.$store.state.datastore.date});
 
-    const cnt = await api.getGridCnt({
-      "grid": this.grid,
-      "date": this.date,
-      "recordLimit": this.recordLimit
-    }); // todo: // 白 or 灰？
+    }else{
+      cnt = await api.getGridGreyCnt({
+        "grid": this.grid,
+        "date": this.date,
+        "recordLimit": this.recordLimit
+      })
+      res = await api.getGridGreyPeople({"grid": this.grid, "date": this.$store.state.datastore.date});
+    }
     const {finishedCnt, totalCnt} = cnt["data"][0];
     this.$refs["piechart"].drawPieChart({
       title: this.type === "white" ? "白名单核酸情况总况" : "灰名单核酸情况总况",
@@ -72,7 +89,6 @@ export default {
       totalCnt: totalCnt
     });
 
-    const res = await api.getGridPeople({"grid": this.grid, "date":this.$store.state.datastore.date}); // todo: // 白 or 灰？
     const {columns, people} = res["data"][0];
     this.columns = columns;
     this.gridPeople = people.map(function (row) {
@@ -85,8 +101,10 @@ export default {
   },
   methods: {
     getPageData() {
-      return this.gridPeople.slice((this.currentPage - 1) * this.pageSize,
-          this.currentPage * this.pageSize);
+      if(this.gridPeople !== null) {
+        return this.gridPeople.slice((this.currentPage - 1) * this.pageSize,
+            this.currentPage * this.pageSize);
+      }
     },
     currentChange(currentPage) {
       this.currentPage = currentPage;

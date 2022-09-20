@@ -7,7 +7,9 @@
             class="upload-demo"
             action=""
             :multiple="false"
-            :http-request="uploadFileHandle">
+            :show-file-list = "false"
+            :http-request="uploadFileHandle"
+            v-loading="loading">
           <el-button size="small" type="info" plain>上传文件</el-button>
         </el-upload>
       </el-col>
@@ -58,12 +60,19 @@ export default {
     return {
       chosenDate: "",
       dateNotDone: 1,
-      timeGranularity: "white"
+      timeGranularity: "white",
+      loading: false,
     };
   },
   methods: {
     async uploadFileHandle(param) {
-      api.uploadFile(param.file);
+      this.loading = true;
+      try{
+        await api.uploadFile(param.file);
+        this.loading = false;
+      }catch(error){
+        this.loading = false;
+      }
     },
     exportReports() {
       api.getExportReport({"date": this.$store.state.datastore.date});

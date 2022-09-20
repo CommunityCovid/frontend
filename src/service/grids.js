@@ -22,9 +22,23 @@ export default {
             data
         });
     },
+    getGridGreyCnt(data) {
+        return request({
+            url: "/api/getGridGreyCnt",
+            method: "POST",
+            data
+        });
+    },
     getGridPeople(data) {
         return request({
             url: "/api/getGridPeople",
+            method: "POST",
+            data
+        });
+    },
+    getGridGreyPeople(data) {
+        return request({
+            url: "/api/getGridGreyPeople",
             method: "POST",
             data
         });

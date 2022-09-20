@@ -6,7 +6,7 @@ const state = () => ({
     greyGridsData: null, // 灰名单
     housingsData: null, //小区
     dateChanged: false,
-    date: "2022-08-25",
+    date: new Date().toLocaleDateString().replaceAll("/", "-"),
 
     recordLimitChanged: false,
     recordLimit: 1,

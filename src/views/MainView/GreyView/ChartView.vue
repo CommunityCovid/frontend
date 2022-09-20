@@ -25,7 +25,7 @@ export default {
             "date": this.date,
             "recordLimit": this.recordLimit
           }
-      ); // todo: 换成灰名单数据
+      );
       const data = res["data"];
       this.$refs["piechart"].drawPieChart({
         title: "灰名单核酸情况总况",
