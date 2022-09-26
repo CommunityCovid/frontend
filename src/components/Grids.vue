@@ -13,7 +13,6 @@
 
 <script>
 import {mapState} from "vuex";
-
 export default {
   name: "Grids",
   data() {
@@ -31,9 +30,10 @@ export default {
       this.type = type;
 
       let myChart = this.$echarts.getInstanceByDom(this.$refs["grids"]);
-      if (myChart == null) {
-        myChart = this.$echarts.init(this.$refs["grids"]);
+      if (myChart !== undefined){
+        myChart.dispose()
       }
+      myChart = this.$echarts.init(this.$refs["grids"]);
 
       let keysSorted = Object.keys(gridsData)
           .sort((a, b) => gridsData[b]["totalCnt"] - gridsData[a]["totalCnt"]);
@@ -105,8 +105,8 @@ export default {
       }
 
       const that = this;
+
       myChart.on("click", function (params) {
-        console.log("click")
         if (params["componentType"] === "series" && params["componentSubType"] === "pie") {
           const gridName = params["seriesName"];
 
