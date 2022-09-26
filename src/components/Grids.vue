@@ -37,7 +37,6 @@ export default {
 
       let keysSorted = Object.keys(gridsData)
           .sort((a, b) => gridsData[b]["totalCnt"] - gridsData[a]["totalCnt"]);
-      const max = this.getBaseLog(10, gridsData[keysSorted[0]]["totalCnt"]);
       if (this.sortBy === "name") {
         keysSorted.sort();
       }
@@ -107,6 +106,7 @@ export default {
 
       const that = this;
       myChart.on("click", function (params) {
+        console.log("click")
         if (params["componentType"] === "series" && params["componentSubType"] === "pie") {
           const gridName = params["seriesName"];
 

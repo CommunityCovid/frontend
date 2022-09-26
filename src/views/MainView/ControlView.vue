@@ -9,7 +9,7 @@
             :multiple="false"
             :show-file-list = "false"
             :http-request="uploadFileHandle"
-            v-loading="loading">
+            v-loading.fullscreen="loading">
           <el-button size="small" type="info" plain>上传文件</el-button>
         </el-upload>
       </el-col>
