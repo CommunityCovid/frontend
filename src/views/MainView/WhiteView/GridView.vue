@@ -34,7 +34,7 @@ export default {
     dataUpdate() {
       if (this.date && this.recordLimit) {
         this.getGridData();
-        this.$refs.grids.drawGrids("white");
+        // this.$refs.grids.drawGrids("white");
       }
     }
   },

@@ -109,13 +109,12 @@ export default {
       myChart.on("click", function (params) {
         if (params["componentType"] === "series" && params["componentSubType"] === "pie") {
           const gridName = params["seriesName"];
-
           let routeData = that.$router.resolve({
             path: "/gridInfo",
             query: {
               "grid": gridName,
-              "date": that.$store.state.datastore.date,
-              "recordLimit": that.$store.state.datastore.recordLimit, // todo:是否正确？
+              "date": that.date,
+              "recordLimit": that.recordLimit, // todo:是否正确？
               "type": that.type
             }
           });

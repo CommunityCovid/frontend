@@ -49,7 +49,11 @@ export default {
   },
   methods: {
     async getGreyList() {
-      const res = await api.getGreyListPeople();
+      const data = {
+        "date": this.$store.state.datastore.date,
+        "recordLimit": this.$store.state.datastore.recordLimit,
+      };
+      const res = await api.getGreyListPeople(data);
       const {columns, people} = res["data"][0];
       this.columns = columns;
       this.greyListPeople = people.map(function (row) {

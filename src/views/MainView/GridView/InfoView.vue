@@ -72,7 +72,7 @@ export default {
         "date": this.date,
         "recordLimit": this.recordLimit
       })
-      res = await api.getGridPeople({"grid": this.grid, "date": this.$store.state.datastore.date});
+      res = await api.getGridPeople({"grid": this.grid, "date": this.date});
 
     }else{
       cnt = await api.getGridGreyCnt({
