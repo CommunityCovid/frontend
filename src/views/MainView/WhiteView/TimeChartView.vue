@@ -8,6 +8,7 @@
 <script>
 import api from "@/service/timeChart";
 import {mapState} from "vuex";
+import { Loading } from 'element-ui';
 
 export default {
   name: "TimeChartView",
@@ -15,11 +16,14 @@ export default {
     return {
       timeScale: null,
       width: 0,
-      height: 0
+      height: 0,
+      loading: true,
+      // loadingInstance: null
     }
   },
   methods: {
     async fetchRecordsData() {
+      let loadingInstance = Loading.service({ fullscreen: true });
       let res = await api.getRecords(this.date)
       const heatMapData = res["data"][0]["heatMap"];
       let position = res["data"][0]["position"]
@@ -39,9 +43,10 @@ export default {
         }
       }
       this.drawHeatMap(data, position)
-
+      loadingInstance.close()
     },
     drawHeatMap(data, position) {
+      this.loading = false
       let chart = this.$echarts.getInstanceByDom(this.$refs["heatMap"]);
       if (chart == null) {
         chart = this.$echarts.init(this.$refs["heatMap"]);

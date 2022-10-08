@@ -80,7 +80,7 @@ export default {
         "date": this.date,
         "recordLimit": this.recordLimit
       })
-      res = await api.getGridGreyPeople({"grid": this.grid, "date": this.$store.state.datastore.date});
+      res = await api.getGridGreyPeople({"grid": this.grid, "date": this.date});
     }
     const {finishedCnt, totalCnt} = cnt["data"][0];
     this.$refs["piechart"].drawPieChart({

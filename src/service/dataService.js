@@ -3,7 +3,7 @@ import axios from "axios";
 
 Vue.prototype.axios = axios;
 
-const dataServerUrl = "http://10.16.3.177:9999";
+const dataServerUrl = "http://localhost:9999";
 
 const service = axios.create({
     baseURL: dataServerUrl,
